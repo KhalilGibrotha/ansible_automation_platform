@@ -1,0 +1,17 @@
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: centos:7
+    pre_build_image: true
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+      - SYS_PTRACE
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+scenarios:
+  - name: default
+    test_sequence:
+      - converge
+      - verify

@@ -1,0 +1,7 @@
+---
+skip_list:
+  - yaml  # Disables strict YAML linting
+  - fqcn-builtins  # Avoids warnings about missing 'ansible.builtin.'
+  - no-changed-when  # Suppresses warnings about missing 'changed_when' in command tasks
+  - experimental  # Ignores experimental rules
+  - unnamed-task  # Allows tasks without 'name'

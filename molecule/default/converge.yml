@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Ensure necessary roles are installed
+      ansible.builtin.include_role:
+        name: your_role_name
+
+    - name: Run playbook
+      ansible.builtin.import_playbook: your_playbook.yml
+
+    - name: Additional setup tasks
+      ansible.builtin.shell: echo "Setup complete"

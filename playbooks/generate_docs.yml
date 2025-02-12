@@ -7,12 +7,20 @@
     output_directory: "./files/"
     source_directory: "./templates/"
     templates_list:
-      - {src: "{{ source_directory }}/aap_operations_manual.j2", dest: "aap_operations_manual.md"}
-      - {src: "{{ source_directory }}/aap_platform_admin_guide.j2", dest: "aap_platform_admin_guide.md"}
-      - {src: "{{ source_directory }}/aap_policy_governance.j2", dest: "aap_policy_governance.md"}
+      - src: "{{ source_directory }}aap_operations_manual.j2"
+      - dest: "{{ output_directory }}aap_operations_manual.md"
+      - src: "{{ source_directory }}aap_platform_admin_guide.j2"
+      - dest: "{{ output_directory }}aap_platform_admin_guide.md"
+      - src: "{{ source_directory }}aap_policy_governance.j2"
+      - dest: "{{ output_directory }}aap_policy_governance.md"
   tasks:
     - name: Load common variables
       include_vars: aap.yml
+
+    - name: Checking my sanity, Debug all AAP variables
+      debug:
+        msg: "{{ item }} = {{ vars[item] | default('MISSING VALUE') }}"
+      loop: "{{ vars.keys() | list | select('match', '^AAP_.*') | list }}"
 
     - name: Display all variables/facts known for a host
       debug:
@@ -24,6 +32,11 @@
         state: directory
         mode: '0755'
 
+    - name: Debug template list items to render to Markdown files
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ templates_list }}"
+
     - name: Render templates to Markdown files
       ansible.builtin.template:
         src: "{{ item.src }}"
@@ -31,10 +44,13 @@
         mode: '0644'
       loop: "{{ templates_list }}"
       loop_control: {}
+      when:
+        - item.src | default('') != ''
+        - item.dest | default('') != ''
 
     - name: Convert Markdown to DOCX
       ansible.builtin.command:
-        cmd: pandoc "{{ output_directory }}{{ item.dest }}" -o "{{ output_directory }}{{ item.dest | replace('.md', '.docx') }}"
+        cmd: pandoc --toc "{{ item.dest }}" -o "{{ item.dest | replace('.md', '.docx') }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua --reference-doc=files/pandoc_reference/custom-reference.docx
       loop: "{{ templates_list }}"
-      loop_control: {}
-      when: item.dest is defined
+      when: 
+        - item.dest | default('') | length > 0

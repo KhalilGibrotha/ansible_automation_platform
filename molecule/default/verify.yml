@@ -1,0 +1,23 @@
+- name: Verify the environment
+  hosts: all
+  tasks:
+    - name: Check if the service is running
+      service:
+        name: your_service_name
+        state: started
+      register: service_status
+
+    - name: Assert service is running
+      assert:
+        that:
+          - service_status is succeeded
+
+    - name: Check if the configuration file exists
+      stat:
+        path: /path/to/your/configuration/file
+      register: config_file
+
+    - name: Assert configuration file exists
+      assert:
+        that:
+          - config_file.stat.exists is true

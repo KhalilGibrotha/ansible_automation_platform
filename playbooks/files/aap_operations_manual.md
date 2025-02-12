@@ -1,3 +1,17 @@
+---
+title: "My Document"
+author: "John Doe"
+date: "February 2025"
+---
+\newpage
+
+```python
+def hello():
+    print("Hello, world!")
+```
+
+> This is a blockquote
+
 # My Big Company Operations Manual
 ## 1. Introduction
 ### 1.1 Purpose
@@ -17,7 +31,7 @@ This manual applies to all automation operations within Server Engineering and O
 ## 2. Platform Overview
 ### 2.1 Environment & Infrastructure
 - **Environment Type**: On-Prem
-- **Primary Objectives**: ['Automation', 'SRE', 'DevSecOps transformation', 'Cost optimization']
+- **Primary Objectives**: ['Stabilize the Environment', 'Drive Process Efficiencies', 'Develop Talent', 'Deliver Emerging Technologies', 'Manage Cost']
 - **Supported OS Versions**: 
   - **RHEL**: 8, 9
   - **Windows**: 2016, 2019, 2022
@@ -26,10 +40,10 @@ This manual applies to all automation operations within Server Engineering and O
 
 ### 2.2 Infrastructure Components
 - **Identity Management System**: Active Directory, Okta
-- **RBAC Provider**: SailPoint, FreeIPA
+- **RBAC Provider**: SailPoint
 - **Load Balancer**: F5 Big-IP
 - **Inventory Management**: Red Hat Satellite, Ansible Inventory
-- **Credential Storage**: CyberArk, HashiCorp Vault
+- **Credential Storage**: CyberArk
 
 ---
 
@@ -44,7 +58,7 @@ This manual applies to all automation operations within Server Engineering and O
 - **Patching**: Managed through Red Hat Satellite, Ansible Inventory.
 
 ### 3.3 Security & Compliance
-- **Compliance Standards**: CIS Level 1, RBAC, SailPoint
+- **Compliance Standards**: SECU security standards
 - **Audit Frequency**: Quarterly
 - **Monitoring & Logging**: Splunk, BMC Helix, Red Hat Satellite
 
@@ -53,7 +67,7 @@ This manual applies to all automation operations within Server Engineering and O
 ## 4. Technology Stack
 ### 4.1 Infrastructure
 - **Network Technologies**: Cisco Fabric, Infoblox (DNS)
-- **Security Technologies**: Tenable, SentinelOne, Splunk
+- **Security Technologies**: Tenable, SentinelOne
 - **Compute Technologies**: VMware vSphere, Red Hat OpenShift
 
 ### 4.2 Configuration & Deployment
@@ -64,7 +78,7 @@ This manual applies to all automation operations within Server Engineering and O
 ### 4.3 Monitoring & Logging
 - **Service Management Tools**: BMC Helix, Digital Workplace
 - **Containerization Platforms**: Red Hat OpenShift, Docker
-- **Application Management**: MuleSoft, Archer
+- **Application Management**: Archer
 
 ---
 
@@ -74,7 +88,7 @@ Performance of AAP is tracked using the following key metrics:
 - **Automation Coverage**: Automation Coverage (%), Change Lead Time, Incident MTTR, Configuration Drift (%)
 
 ### 5.2 Governance Model
-- **Role-Based Access Control (RBAC)** is enforced via SailPoint, FreeIPA.
+- **Role-Based Access Control (RBAC)** is enforced via SailPoint.
 - **Platform Admins** manage high-level configuration and access.
 - **Operators** are limited to executing approved job templates.
 
@@ -105,7 +119,7 @@ Performance of AAP is tracked using the following key metrics:
 
 ### 7.2 Compliance Auditing
 - **Audit Schedule**: Quarterly.
-- **Audited By**: SailPoint, FreeIPA security teams.
+- **Audited By**: SailPoint security teams.
 - **Logged & Monitored By**: Splunk, BMC Helix, Red Hat Satellite.
 
 ---

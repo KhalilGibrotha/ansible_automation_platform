@@ -2,6 +2,12 @@
     "folders": [
         {
             "path": "../../.."
+        },
+        {
+            "path": "../../../../ai_trade"
         }
-    ]
+    ],
+    "settings": {
+        "ansible.python.interpreterPath": "/bin/python3"
+    }
 }

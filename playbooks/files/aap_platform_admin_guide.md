@@ -40,11 +40,11 @@
 
 ## 4. Platform Security & Governance
 ### RBAC Enforcement
-- Role-based access control via SailPoint, FreeIPA
+- Role-based access control via SailPoint
 - No direct individual permissions
 
 ### Inventory & Credential Security
-- Centralized credential storage: CyberArk, HashiCorp Vault
+- Centralized credential storage: CyberArk
 - Role-based credential usage restrictions
 
 ### Job Execution Policies

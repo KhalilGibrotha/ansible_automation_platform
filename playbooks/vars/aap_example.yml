@@ -10,6 +10,14 @@ AAP_INVENTORY_MANAGEMENT: "{{AAP_INVENTORY_MANAGEMENT}}"  # Example: 'Red Hat Sa
 AAP_CREDENTIAL_STORAGE: "{{AAP_CREDENTIAL_STORAGE}}"  # Example: 'CyberArk, HashiCorp Vault'
 AAP_JOB_EXECUTION_POLICY: "{{AAP_JOB_EXECUTION_POLICY}}"  # Example: 'Restricted to approved job templates'
 AAP_COMPLIANCE_AUDIT_FREQUENCY: "{{AAP_COMPLIANCE_AUDIT_FREQUENCY}}"  # Example: 'Quarterly, Bi-Annually'
+AAP_LOWER_ENVIRONMENT: "{{AAP_LOWER_ENVIRONMENT}}"  # Example: 'Development, Test'
+AAP_UPPER_ENVIRONMENT: "{{AAP_UPPER_ENVIRONMENT}}"  # Example: 'Staging, Production'
+AAP_CHANGE_MANAGEMENT_SYSTEM: "{{AAP_CHANGE_MANAGEMENT_SYSTEM}}"  # Example: 'ServiceNow, BMC Helix'
+AAP_CHANGE_MANAGEMENT_APPROVALS: "{{AAP_CHANGE_MANAGEMENT_APPROVALS}}"  # Example: 'Standard, Emergency'
+AAP_CODE_REPOSITORY: "{{AAP_CODE_REPOSITORY}}"  # Example: 'GitLab, GitHub'
+AAP_CI_CD_SYSTEM: "{{AAP_CI_CD_SYSTEM}}"  # Example: 'Jenkins, GitLab CI'
+AAP_CI_CD_PIPELINE: "{{AAP_CI_CD_PIPELINE}}"  # Example: 'Build, Test, Deploy'
+
 
 # Environment & Technical Constraints
 ENVIRONMENT_TYPE: "{{ENVIRONMENT_TYPE}}"  # Example: 'On-Prem, Hybrid Cloud'
@@ -26,7 +34,7 @@ AAP_INTEGRATION_POINTS: "{{AAP_INTEGRATION_POINTS}}"  # Example: 'Splunk, BMC He
 
 # AAP Components & Technology
 AAP_NETWORK_TECH: "{{AAP_NETWORK_TECH}}"  # Example: '["Cisco Fabric", "Infoblox (DNS)"]'
-AAP_SECURITY_TECH: "{{AAP_SECURITY_TECH}}"  # Example: '["Tenable", "SentinelOne", "Splunk"]'
+AAP_SECURITY_TECH: "{{AAP_SECURITY_TECH}}"  # Example: '["Tenable", "SentinelOne"]'
 AAP_COMPUTE_TECH: "{{AAP_COMPUTE_TECH}}"  # Example: '["VMware vSphere", "Red Hat OpenShift"]'
 AAP_CONFIG_MANAGEMENT_TECH: "{{AAP_CONFIG_MANAGEMENT_TECH}}"  # Example: '["Ansible Automation Platform", "GitLab"]'
 AAP_STORAGE_TECH: "{{AAP_STORAGE_TECH}}"  # Example: '["Pure Storage", "Dell EMC"]'
@@ -34,6 +42,8 @@ AAP_IAM_TECH: "{{AAP_IAM_TECH}}"  # Example: '["Okta", "Active Directory", "Sail
 AAP_SERVICE_MGMT_TECH: "{{AAP_SERVICE_MGMT_TECH}}"  # Example: '["BMC Helix", "Digital Workplace"]'
 AAP_CONTAINERIZATION_TECH: "{{AAP_CONTAINERIZATION_TECH}}"  # Example: '["Red Hat OpenShift", "Docker"]'
 AAP_APPLICATION_MGMT_TECH: "{{AAP_APPLICATION_MGMT_TECH}}"  # Example: '["MuleSoft", "Archer"]'
+AAP_MONITORING_TECH: "{{AAP_MONITORING_TECH}}"  # Example: '["Splunk", "Nagios"]'
+AAP_LOGGING_TECH: "{{AAP_LOGGING_TECH}}"  # Example: '["Splunk", "Elasticsearch"]'
 
 # Metrics
 AAP_METRICS: "{{AAP_METRICS}}"  # Example: '["Automation Coverage (%)", "Change Lead Time"]'
