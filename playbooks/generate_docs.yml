@@ -4,57 +4,58 @@
   connection: local
   gather_facts: false
   vars:
-    output_directory: "./files/working_docs/"
-    source_directory: "./templates/"
-    doc_directory: "./files/pandoc_generated/"
-    reference: "./files/pandoc_reference/custom-reference.docx"
+    output_directory: ./files/working_docs/
+    source_directory: ./templates/
+    doc_directory: ./files/pandoc_generated/
+    reference: ./files/pandoc_reference/custom-reference.docx
     templates_list:
-      - { src: "{{ source_directory }}aap_operations_manual.j2",
-        dest: "{{ output_directory }}aap_operations_manual.md",
-        doc: "{{ doc_directory }}aap_operations_manual.docx" }
-      - { src: "{{ source_directory }}aap_platform_admin_guide.j2",
-        dest: "{{ output_directory }}aap_platform_admin_guide.md",
-        doc: "{{ doc_directory }}aap_platform_admin_guide.docx" }
-      - { src: "{{ source_directory }}aap_policy_governance.j2",
-        dest: "{{ output_directory }}aap_policy_governance.md",
-        doc: "{{ doc_directory }}aap_policy_governance.docx" }
+      - src: "{{ source_directory }}aap_operations_manual.j2"
+        dest: "{{ output_directory }}aap_operations_manual.md"
+        doc: "{{ doc_directory }}aap_operations_manual.docx"
+      - src: "{{ source_directory }}aap_platform_admin_guide.j2"
+        dest: "{{ output_directory }}aap_platform_admin_guide.md"
+        doc: "{{ doc_directory }}aap_platform_admin_guide.docx"
+      - src: "{{ source_directory }}aap_policy_governance.j2"
+        dest: "{{ output_directory }}aap_policy_governance.md"
+        doc: "{{ doc_directory }}aap_policy_governance.docx"
   tasks:
     - name: Load common variables
-      include_vars: aap.yml
+      ansible.builtin.include_vars: aap.yml
 
     - name: Checking my sanity, Debug all AAP variables
-      debug:
-        msg: "{{ item }} = {{ vars[item] | default('MISSING VALUE') }}"
       loop: "{{ vars.keys() | list | select('match', '^AAP_.*') | list }}"
+      ansible.builtin.debug:
+        msg: "{{ item }} = {{ vars[item] | default('MISSING VALUE') }}"
 
     - name: Display all variables/facts known for a host
-      debug:
+      ansible.builtin.debug:
         var: hostvars[inventory_hostname]
 
     - name: Ensure output directory exists
       ansible.builtin.file:
         path: "{{ output_directory }}"
         state: directory
-        mode: '0755'
+        mode: "0755"
 
     - name: Debug template list items to render to Markdown files
-      debug:
-        msg: "{{ item }}"
       loop: "{{ templates_list }}"
+      ansible.builtin.debug:
+        msg: "{{ item }}"
 
     - name: Render templates to Markdown files
       ansible.builtin.template:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
-        mode: '0644'
+        mode: "0644"
       loop: "{{ templates_list }}"
       loop_control: {}
-      when: 
+      when:
         - item.dest | default('') | length > 0
 
     - name: Convert Markdown to DOCX
       ansible.builtin.command:
-        cmd: pandoc --from=markdown+hard_line_breaks --to=docx -o--toc "{{ item.dest }}" -o "{{ item.doc }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua  --reference-doc="{{ reference }}"
+        cmd: pandoc --from=markdown+hard_line_breaks --to=docx -o--toc "{{ item.dest }}" -o "{{ item.doc }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua  --reference-doc="{{
+          reference }}"
       loop: "{{ templates_list }}"
-      when: 
+      when:
         - item.dest | default('') | length > 0
