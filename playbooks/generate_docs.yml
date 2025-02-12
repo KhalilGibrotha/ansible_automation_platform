@@ -1,0 +1,40 @@
+---
+- name: Generate Documentation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    output_directory: "./files/"
+    source_directory: "./templates/"
+    templates_list:
+      - {src: "{{ source_directory }}/aap_operations_manual.j2", dest: "aap_operations_manual.md"}
+      - {src: "{{ source_directory }}/aap_platform_admin_guide.j2", dest: "aap_platform_admin_guide.md"}
+      - {src: "{{ source_directory }}/aap_policy_governance.j2", dest: "aap_policy_governance.md"}
+  tasks:
+    - name: Load common variables
+      include_vars: aap.yml
+
+    - name: Display all variables/facts known for a host
+      debug:
+        var: hostvars[inventory_hostname]
+
+    - name: Ensure output directory exists
+      ansible.builtin.file:
+        path: "{{ output_directory }}"
+        state: directory
+        mode: '0755'
+
+    - name: Render templates to Markdown files
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ output_directory }}{{ item.dest }}"
+        mode: '0644'
+      loop: "{{ templates_list }}"
+      loop_control: {}
+
+    - name: Convert Markdown to DOCX
+      ansible.builtin.command:
+        cmd: pandoc "{{ output_directory }}{{ item.dest }}" -o "{{ output_directory }}{{ item.dest | replace('.md', '.docx') }}"
+      loop: "{{ templates_list }}"
+      loop_control: {}
+      when: item.dest is defined

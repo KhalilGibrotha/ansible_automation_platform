@@ -1,0 +1,43 @@
+ORGANIZATION_NAME: "My Big Company"
+SUB_ORGANIZATION_NAME: "Server Engineering and Operations"
+IDENTITY_MANAGEMENT_SYSTEM: "Active Directory, Okta"
+AAP_REGISTRY_URL: "quay.io/internal-registry"
+AAP_RBAC_PROVIDER: "SailPoint, FreeIPA"
+AAP_LOAD_BALANCER: "F5 Big-IP"
+AAP_INVENTORY_MANAGEMENT: "Red Hat Satellite, Ansible Inventory"
+AAP_CREDENTIAL_STORAGE: "CyberArk, HashiCorp Vault"
+AAP_JOB_EXECUTION_POLICY: "Restricted to approved job templates"
+AAP_COMPLIANCE_AUDIT_FREQUENCY: "Quarterly"
+
+# Environment & Technical Constraints
+ENVIRONMENT_TYPE: "On-Prem"
+MAIN_OBJECTIVES: ["Automation", "SRE", "DevSecOps transformation", "Cost optimization"]
+RHEL_VERSIONS: [8, 9]
+WINDOWS_VERSIONS: [2016, 2019, 2022]
+AAP_PREFERRED_GALAXY_COLLECTIONS: ["ansible.windows", "community.general"]
+AAP_PYTHON_VERSION: "3.8"
+AAP_PYTHON_DEPENDENCES: ["pywinrm", "requests", "pyvmomi"]
+AAP_SYSTEM_DEPENDENCES: [""]
+AAP_VERSION: "2.5"
+SATELLITE_VERSION: "6.13"
+
+# Security & Compliance
+AAP_SECURITY_AND_COMPLIANCE: ["CIS Level 1", "RBAC", "SailPoint"]
+AAP_INTEGRATION_POINTS: ["Splunk", "BMC Helix", "Red Hat Satellite"]
+
+# AAP Components & Technology
+AAP_NETWORK_TECH: ["Cisco Fabric", "Infoblox (DNS)"]
+AAP_SECURITY_TECH: ["Tenable", "SentinelOne", "Splunk"]
+AAP_COMPUTE_TECH: ["VMware vSphere", "Red Hat OpenShift"]
+AAP_CONFIG_MANAGEMENT_TECH: ["Ansible Automation Platform", "GitLab"]
+AAP_STORAGE_TECH: ["Pure Storage", "Dell EMC"]
+AAP_IAM_TECH: ["Okta", "Active Directory", "SailPoint"]
+AAP_SERVICE_MGMT_TECH: ["BMC Helix", "Digital Workplace"]
+AAP_CONTAINERIZATION_TECH: ["Red Hat OpenShift", "Docker"]
+AAP_APPLICATION_MGMT_TECH: ["MuleSoft", "Archer"]
+
+# Metrics
+AAP_METRICS: ["Automation Coverage (%)", "Change Lead Time", "Incident MTTR", "Configuration Drift (%)"]
+
+# Team Roles by Domain
+AAP_ROLE_DOMAINS: ["Storage", "Network", "Network Security", "Server", "Virtualization", "App Dev"]
