@@ -5,7 +5,7 @@
   gather_facts: false
   vars:
     output_directory: "./files/working_docs/"
-    source_directory: "./templates/"
+    source_directory: "./templates/docs/"
     doc_directory: "./files/pandoc_generated/"
     reference: "./files/pandoc_reference/custom-reference.docx"
     templates_list:
@@ -20,7 +20,7 @@
         doc: "{{ doc_directory }}aap_policy_governance.docx" }
   tasks:
     - name: Load common variables
-      include_vars: aap.yml
+      include_vars: global/aap.yml
 
     - name: Checking my sanity, Debug all AAP variables
       debug:
