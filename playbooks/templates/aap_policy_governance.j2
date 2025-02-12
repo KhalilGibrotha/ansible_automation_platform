@@ -11,12 +11,14 @@ toc_depth: 3
 
 \newpage
 
-# Red Hat Ansible Automation Platform (AAP) Policy & Governance
+# Red Hat Ansible Automation Platform (AAP) Policy & 
+
 ---
 
 # 1. Introduction
 
 This policy and governance document establishes the foundation for Red Hat Ansible Automation Platform (AAP) implementation at {{ ORGANIZATION_NAME }}. It defines our comprehensive governance framework, encompassing user roles, role-based access control (RBAC), and permission structures that safeguard our automation workflows within {{ SUB_ORGANIZATION_NAME }}. This document also outlines the AAP architecture, execution model, and key concepts, clearly understanding the platform's operational structure.
+
 
 ## Purpose
 This document serves multiple critical functions within our automation strategy. It establishes the fundamental governance structure for AAP, including organization design, role-based access control, and permission management. These elements work together to ensure secure, scalable automation practices that align with {{ ORGANIZATION_NAME }}'s operational requirements and {{ SUB_ORGANIZATION_NAME }}' {{ SUB_ORG_OBJECTIVE_TITLE }} ({{ macros.oxford_comma_list(MAIN_OBJECTIVES) }}).
@@ -25,21 +27,23 @@ Our governance framework enforces strict RBAC policies through {{ macros.oxford_
 
 The successful implementation of this governance framework requires active participation across all domains: {{ macros.oxford_comma_list(AAP_ROLE_DOMAINS) }}. Platform Architects, Engineers, and Automation Consumers must collaborate effectively while operating within their defined roles to maintain our automation environment's security, efficiency, and operational resilience.
 
+
 ## Scope
-- Covers user access, job execution, inventory management, and compliance policies.
-- Defines how automation is developed, tested, and deployed within AAP.
-- Establishes a standardized approach to execution environments (EEs) and collection management.
-- Provides policies for credential security and centralized inventory governance.
-- Includes logging, auditing, and security and regulatory adherence compliance measures.
-- Outlines procedures for onboarding new teams and roles within AAP.
-- **Excludes** custom playbook development (handled by individual teams).
+  - Covers user access, job execution, inventory management, and compliance policies.
+  - Defines how automation is developed, tested, and deployed within AAP.
+  - Establishes a standardized approach to execution environments (EEs) and collection management.
+  - Provides policies for credential security and centralized inventory governance.
+  - Includes logging, auditing, and security and regulatory adherence compliance measures.
+  - Outlines procedures for onboarding new teams and roles within AAP.
+  - **Excludes** custom playbook development (handled by individual teams).
 
 
 ## Audience
-- **Platform Engineers & Administrators**: Maintain platform governance.
-- **Engineers & Operators**: Execute and develop automation.
-- **Security & Compliance Teams**: Audit platform usage.
-- **Executive Leadership**: Oversee governance adherence, provide strategic direction, and ensure that automation aligns with broader business objectives.
+  - **Platform Engineers & Administrators**: Maintain platform governance.
+  - **Engineers & Operators**: Execute and develop automation.
+  - **Security & Compliance Teams**: Audit platform usage.
+  - **Executive Leadership**: Oversee governance adherence, provide strategic direction, and ensure that automation aligns with broader business objectives.
+
 
 ---
 
@@ -50,6 +54,7 @@ The job execution process follows a defined sequence that ensures security and p
 The Execution Node then pulls the required Execution Environment (EE) from {{ AAP_REGISTRY_URL }}, creating an isolated context for the automation task. Within this environment, the job executes using predetermined playbooks and collections {{ macros.oxford_comma_list(AAP_PREFERRED_GALAXY_COLLECTIONS) }}. Throughout the process, the platform maintains comprehensive logging of all activities in {{ macros.oxford_comma_list(AAP_INTEGRATION_POINTS) }}, ensuring full auditability of the execution chain.
 
  This section breaks down the key components of AAP. It highlights Control Nodes, which are responsible for managing automation tasks, and Execution Nodes, which carry out those tasks. We also clarify important terminology, including team roles, credentials, workflows, and execution environments.
+
 
 ## Definition of Key Concepts
 | Concept | Definition |
@@ -78,9 +83,9 @@ The `{{ AAP_LOWER_ENVIRONMENT }}` organization provides a dedicated space for te
 
 This model delivers several key benefits:
 
-1. It maintains operational simplicity while supporting enterprise-scale automation across outrastructure.
-2. The structure aligns naturally with our existing {{ AAP_CODE_REPOSITORY }} code promotion strategy.
-3. Cross-team visibility is preserved through universal read access to both organizations, fostering collaboration while maintaining security boundaries through {{ macros.oxford_comma_list(AAP_IAM_TECH) }}. 
+  1. It maintains operational simplicity while supporting enterprise-scale automation across outrastructure.
+  2. The structure aligns naturally with our existing {{ AAP_CODE_REPOSITORY }} code promotion strategy.
+  3. Cross-team visibility is preserved through universal read access to both organizations, fostering collaboration while maintaining security boundaries through {{ macros.oxford_comma_list(AAP_IAM_TECH) }}. 
 
 ## Organization Structure
 - **{{ AAP_UPPER_ENVIRONMENT }}**: Hosts approved automation for production environments. For governance purposes, all {{ ORGANIZATION_NAME }}SDLC environments, including {{ macros.oxford_comma_list(ORG_SDLC_ENVIRONMENTS) }}, are considered part of the `{{ AAP_LOWER_ENVIRONMENT }}` organization within the context of AAP.

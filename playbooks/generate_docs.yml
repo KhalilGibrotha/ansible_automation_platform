@@ -54,7 +54,7 @@
 
     - name: Convert Markdown to DOCX
       ansible.builtin.command:
-        cmd: pandoc --toc "{{ item.dest }}" -o "{{ item.doc }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua  --reference-doc="{{ reference }}"
+        cmd: pandoc --from=markdown+hard_line_breaks --to=docx -o--toc "{{ item.dest }}" -o "{{ item.doc }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua  --reference-doc="{{ reference }}"
       loop: "{{ templates_list }}"
       when: 
         - item.dest | default('') | length > 0
