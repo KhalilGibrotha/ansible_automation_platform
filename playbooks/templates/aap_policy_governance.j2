@@ -1,5 +1,4 @@
 {% import 'macros.j2' as macros %}
-{# Import the custom Jinja2 macros #}
 ---
 title: |
   Red Hat Ansible Automation Platform (AAP)
@@ -46,7 +45,7 @@ The successful implementation of this governance framework requires active parti
 
 # AAP Architecture & Execution Model
 
-The job execution process follows a defined sequence that ensures security and proper resource utilization. When a job is initiated—whether through manual intervention, scheduled execution, or a webhook trigger—the Automation Controller receives and validates the request through established {{ AAP_SECURITY_AND_COMPLIANCE[1] }} protocols. After validation, the Controller retrieves the necessary inventory from {{ AAP_INVENTORY_MANAGEMENT }} and credentials from {{ AAP_CREDENTIAL_STORAGE }} before dispatching the job to an appropriate Execution Node.
+The job execution process follows a defined sequence that ensures security and proper resource utilization. When a job is initiated—whether through manual intervention, scheduled execution, or a webhook trigger—the Automation Controller receives and validates the request through established {{ AAP_SECURITY_AND_COMPLIANCE }} protocols. After validation, the Controller retrieves the necessary inventory from {{ AAP_INVENTORY_MANAGEMENT }} and credentials from {{ AAP_CREDENTIAL_STORAGE }} before dispatching the job to an appropriate Execution Node.
 
 The Execution Node then pulls the required Execution Environment (EE) from {{ AAP_REGISTRY_URL }}, creating an isolated context for the automation task. Within this environment, the job executes using predetermined playbooks and collections {{ macros.oxford_comma_list(AAP_PREFERRED_GALAXY_COLLECTIONS) }}. Throughout the process, the platform maintains comprehensive logging of all activities in {{ macros.oxford_comma_list(AAP_INTEGRATION_POINTS) }}, ensuring full auditability of the execution chain.
 
@@ -69,6 +68,7 @@ The Execution Node then pulls the required Execution Environment (EE) from {{ AA
 | **Network Management Zone** | A designated area where EE virtual machine hosts are deployed, guaranteeing controlled execution within network parameters. |
 | **Containers & Container Images** | Lightweight, isolated execution units used to package and run automation tasks efficiently. |
 | **Registries** | Storage locations for Execution Environments and container images (e.g.,  {{ AAP_REGISTRY_URL }}). |
+
 
 # 3. AAP Organizations & Role-Based Access Model
 
