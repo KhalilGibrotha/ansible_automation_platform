@@ -1,0 +1,44 @@
+APPLICATION_NAME: "ExampleApp"
+APPLICATION_OVERVIEW: "ExampleApp is a web-based application used for managing customer data."
+
+APP_ENVIRONMENTS:
+  Production:
+    - name: prod-app-01
+      ip: 192.168.1.10
+      role: Application Server
+      os_version: "RHEL 8"
+    - name: prod-db-01
+      ip: 192.168.1.20
+      role: Database Server
+      os_version: "RHEL 8"
+  Test:
+    - name: test-app-01
+      ip: 192.168.2.10
+      role: Application Server
+      os_version: "RHEL 9"
+
+FIREWALL_RULES:
+  - source: "192.168.1.10"
+    destination: "192.168.1.20"
+    port: 3306
+    protocol: "TCP"
+    notes: "Allow DB access from App Server"
+
+BACKUPS:
+  - type: "Database"
+    frequency: "Daily"
+    retention: "30 Days"
+    location: "/mnt/backups/db"
+
+DIAGRAMS:
+  Production:
+    path: "/path/to/prod-diagram.png"
+  Test:
+    path: "/path/to/test-diagram.png"
+
+CERTIFICATES:
+  Production:
+    - name: "app.example.com"
+      expiration: "2025-12-31"
+      issuer: "Let's Encrypt"
+      subject: "CN=app.example.com"

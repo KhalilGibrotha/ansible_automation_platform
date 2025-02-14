@@ -7,7 +7,7 @@
     output_directory: "./files/working_docs/"
     source_directory: "./templates/docs/"
     doc_directory: "./files/pandoc_generated/"
-    reference: "./files/pandoc_reference/custom-reference.docx"
+    reference: "./files/pandoc_reference/reference.docx"
     templates_list:
       - { src: "{{ source_directory }}aap_operations_manual.j2",
         dest: "{{ output_directory }}aap_operations_manual.md",
@@ -54,7 +54,16 @@
 
     - name: Convert Markdown to DOCX
       ansible.builtin.command:
-        cmd: pandoc --from=markdown+hard_line_breaks --to=docx -o--toc "{{ item.dest }}" -o "{{ item.doc }}" --lua-filter=lua/pagebreak.lua --lua-filter=lua/codeblock.lua  --reference-doc="{{ reference }}"
+        cmd: > 
+          pandoc 
+          --to=docx 
+          --lua-filter=lua/pagebreak.lua 
+          --lua-filter=lua/codeblock.lua 
+          --lua-filter=lua/linebreak.lua
+          --reference-doc="{{ reference }}" 
+          --toc 
+          "{{ item.dest }}" 
+          -o "{{ item.doc }}"
       loop: "{{ templates_list }}"
       when: 
         - item.dest | default('') | length > 0

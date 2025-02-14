@@ -1,0 +1,134 @@
+{% import 'macros.j2' as macros %}
+
+---
+title: |
+  {{ APPLICATION_NAME }} Runbook
+subtitle: {{ ORGANIZATION_NAME }}
+toc: true
+toc_float: true
+toc_depth: 3
+---
+
+\newpage
+
+# Revision History
+
+| Date       | Author | Version | Description |
+|------------|--------|---------|-------------|
+| YYYY-MM-DD | Your Name | 1.0 | Initial Version |
+
+---
+
+# Application Overview
+{{ APPLICATION_OVERVIEW }}
+
+---
+
+# Servers and Hardware
+
+{% for env, servers in APP_ENVIRONMENTS.items() %}
+## {{ env }} Environment
+| Server Name | IP Address | Role | OS Version |
+|------------|------------|------|------------|
+{% for server in servers %}
+| {{ server.name }} | {{ server.ip }} | {{ server.role }} | {{ server.os_version }} |
+{% endfor %}
+{% endfor %}
+
+---
+
+# Configurations
+
+## Overview
+{{ CONFIG_OVERVIEW }}
+
+## Firewall Configurations
+| Source | Destination | Port | Protocol | Notes |
+|--------|------------|------|----------|-------|
+{% for rule in FIREWALL_RULES %}
+| {{ rule.source }} | {{ rule.destination }} | {{ rule.port }} | {{ rule.protocol }} | {{ rule.notes | default('N/A') }} |
+{% endfor %}
+
+## Backup Configurations
+| Backup Type | Frequency | Retention Policy | Location |
+|------------|----------|------------------|---------|
+{% for backup in BACKUPS %}
+| {{ backup.type }} | {{ backup.frequency }} | {{ backup.retention }} | {{ backup.location }} |
+{% endfor %}
+
+## Other Configurations
+{{ OTHER_CONFIGURATIONS }}
+
+---
+
+# Diagrams
+## Overview
+{{ DIAGRAM_OVERVIEW }}
+
+{% for env, diagram in DIAGRAMS.items() %}
+### {{ env }} Environment
+![{{ env }} Diagram]({{ diagram.path }})
+{% endfor %}
+
+---
+
+# Certificates
+
+## Overview
+{{ CERTIFICATE_OVERVIEW }}
+
+{% for env, certs in CERTIFICATES.items() %}
+### {{ env }} Environment
+| Certificate Name | Expiration Date | Issuer | Subject |
+|-----------------|----------------|--------|---------|
+{% for cert in certs %}
+| {{ cert.name }} | {{ cert.expiration }} | {{ cert.issuer }} | {{ cert.subject }} |
+{% endfor %}
+{% endfor %}
+
+---
+
+# Patching
+
+## Guide
+{{ PATCHING_GUIDE }}
+
+## Additional Information
+{{ PATCHING_ADDITIONAL_INFO }}
+
+---
+
+# How-To’s
+{{ HOW_TO_GUIDE }}
+
+---
+
+# Installations and Updates
+
+## Overview
+{{ INSTALLATION_OVERVIEW }}
+
+## Initial Installation
+{{ INSTALLATION_STEPS }}
+
+## Upgrades
+{{ UPGRADE_STEPS }}
+
+---
+
+# Troubleshooting
+
+## "Top 10" Issues and Resolutions
+| Issue | Resolution |
+|-------|------------|
+{% for issue in TOP_10_ISSUES %}
+| {{ issue.description }} | {{ issue.resolution }} |
+{% endfor %}
+
+## Other Troubleshooting
+{{ OTHER_TROUBLESHOOTING }}
+
+---
+
+# Additional Information
+{{ ADDITIONAL_INFO }}
