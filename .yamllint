@@ -1,11 +1,11 @@
-
+---
 extends: default
 
 rules:
-  indentation: {spaces: 2}
-  line-length: disable  # Allows long lines
+  indentation: { spaces: 2 }
+  line-length: disable # Allows long lines
   trailing-spaces: disable
-  document-start: disable  # Doesn't require '---' at the start
-  document-end: disable  # Doesn't require newline at end of file
+  document-start: disable # Doesn't require '---' at the start
+  document-end: disable # Doesn't require newline at end of file
   empty-lines: disable
   truthy: disable

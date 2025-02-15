@@ -1,3 +1,4 @@
+---
 - name: Verify the environment
   hosts: all
   tasks:
