@@ -1,0 +1,118 @@
+---
+title: "Section 8: Team Onboarding & Offboarding"
+aap_version: "{{ constraints.technical.red_hat_ansible_automation_platform_version }}"
+satellite_version: "{{ constraints.technical.satellite_version }}"
+environment_type: "{{ context.environment_type }}"
+main_objectives: "{{ context.main_objectives }}"
+layout: "markdown"
+---
+
+# 8. Team Onboarding & Offboarding
+
+This runbook section outlines how to add, modify, or remove team members from Red Hat Ansible Automation Platform (AAP) **v{{ aap_version }}** in an **{{ environment_type }}** environment. It aligns with our core objectives:
+- **{{ main_objectives }}**  
+
+All processes described here must remain compliant with our technical and organizational constraints (e.g., Satellite **v{{ satellite_version }}**, CIS/general SECU standards, maintenance windows).
+
+---
+
+## 8.1 Purpose & Scope
+
+- **Purpose**:  
+  Ensure timely, secure, and auditable user lifecycle management within AAP, reflecting both identity and access control policies across **Okta**, **AD**, and **SailPoint**.
+
+- **Scope**:  
+  - Covers onboarding/offboarding for all platform roles (Administrators, Engineers, Operators, Auditors).  
+  - Excludes break-glass emergency procedures, which are documented in a separate emergency runbook.
+
+---
+
+## 8.2 Governance References
+
+- **Policy & Governance Document**: Refer to Sections on “RBAC” and “Team Onboarding & Role Integration” :contentReference[oaicite:0]{index=0}.  
+- **Identity Management**: User lifecycle events and group memberships managed by **SailPoint** and **Okta** for Single Sign-On (SSO).
+
+---
+
+## 8.3 Onboarding Procedure
+
+1. **Access Request**  
+   1.1 **New Request**: Team lead or manager logs a request in **BMC Helix** (or **Digital Workplace**) specifying the new user’s role (e.g., `Platform_Operator`).  
+   1.2 **Documentation**: Ensure the request contains user’s email, department, and rationale (e.g., “New hire to support {{ rationale }} objectives”).  
+   1.3 **Approval**: Request routed to **Platform Admin** for review and sign-off to ensure licensing and security guidelines are met.
+
+2. **Identity Provisioning**  
+   2.1 **SailPoint**: The approved user is added to the appropriate AD group (e.g., `AAP_Operators_main`).  
+   2.2 **Okta**: The user authenticates with Okta, linking their AD group membership to the correct SSO profile.  
+   2.3 **Notification**: The user and requesting manager receive an automated email confirming role assignment.
+
+3. **AAP Access Configuration**  
+   3.1 **Automatic Sync**: AAP periodically syncs with Okta/AD. Once the user is in the correct group, they appear under **Users** in the AAP UI.  
+   3.2 **Profile Verification**: **Platform Admin** confirms that the new user’s role (e.g., `Operator`) maps correctly to the relevant AAP organization (e.g., `develop`).  
+   3.3 **Environment Validation**: User logs into AAP and verifies their ability to see job templates, credentials, or inventory items within their scope.
+
+4. **Orientation & Training**  
+   4.1 **Documentation**: Direct the user to internal Confluence/GitHub pages for standard playbooks, naming conventions, and best practices.  
+   4.2 **Sample Job Execution**: Have them run a test job template (e.g., “Ping Linux Hosts” or “Gather Windows Facts”) within the `develop` org.  
+   4.3 **Mentorship**: Assign a senior **Platform Engineer** or **Operator** as a mentor for the first week.
+
+5. **Compliance Checks**  
+   5.1 **Quarterly Review**: Confirm user roles through **Splunk** or **BMC Helix** audit logs; check for any unapproved scope creep.  
+   5.2 **Reporting**: Cross-reference membership with AD group rosters to identify inactive or over-provisioned accounts.
+
+> **Tip**: Maintain a “New User Checklist” in a centralized location (e.g., GitHub wiki, Confluence) for quick onboarding references.
+
+---
+
+## 8.4 Offboarding Procedure
+
+1. **Trigger & Request**  
+   1.1 **Departure Notice**: HR or management opens a “User Offboarding” request in **BMC Helix** with the user’s last working day.  
+   1.2 **Time-Sensitive Revocation**: If user access is deemed high risk, disable it immediately within 24 hours (or per policy).
+
+2. **Access Removal**  
+   2.1 **Deactivate AD Account**: SailPoint removes the user from all AD groups (e.g., `AAP_Operators_main`).  
+   2.2 **Credential Cleanup**: **Platform Admin** checks AAP for any personal keys, tokens, or custom inventory references tied to the user.  
+   2.3 **Project/Playbook Ownership**: Any personal project repositories are reviewed and reassigned if needed.
+
+3. **Audit & Confirmation**  
+   3.1 **AAP Validation**: Confirm the user no longer appears in **Users** and that any direct credentials are revoked.  
+   3.2 **Log Review**: Check **Splunk** or **BMC Helix** job execution logs to ensure no post-departure activity.  
+   3.3 **Manager Sign-Off**: Request final confirmation from the user’s manager that all role duties have been transitioned.
+
+---
+
+## 8.5 Common Pitfalls & Troubleshooting
+
+- **Delayed Sync**: Okta/AD changes may take up to 15 minutes to propagate to AAP.  
+- **Orphaned Credentials**: Verify there are no user-specific SSH keys or tokens left in the AAP credential store.  
+- **Multi-Role Users**: Ensure the user is removed from old AD groups if they are transferring departments.
+
+---
+
+## 8.6 Escalation Path
+
+1. **Tier 1 (Platform Operator)**  
+   - Address standard onboarding/offboarding questions.
+2. **Tier 2 (Platform Engineer)**  
+   - Fix misconfiguration, assist with SailPoint or Okta integration issues.
+3. **Tier 3 (Platform Admin)**  
+   - Execute break-glass or immediate offboarding in high-risk scenarios.
+4. **Architecture Board**  
+   - Review policy or major structural changes regarding user roles.
+
+---
+
+## 8.7 References
+
+- **Policy & Governance Document**  
+  - [“Team Onboarding & Role Integration” Sections](#) :contentReference[oaicite:1]{index=1}
+- **BMC Helix / Digital Workplace**  
+  - Request, approval, and change management processes.
+- **Okta & AD**  
+  - SSO integration details and attribute mapping.
+- **Splunk**  
+  - Logging and auditing queries for user activity.
+
+---
+

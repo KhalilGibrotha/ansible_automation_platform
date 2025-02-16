@@ -1,0 +1,91 @@
+---
+title: "Sections 1 & 2: Purpose, Scope & Platform Overview"
+aap_version: "{{ constraints.technical.red_hat_ansible_automation_platform_version }}"
+satellite_version: "{{ constraints.technical.satellite_version }}"
+environment_type: "{{ context.environment_type }}"
+main_objectives: "{{ context.main_objectives }}"
+rationale: "{{ context.rationale }}"
+layout: "markdown"
+---
+
+# 1. Purpose & Scope
+
+This runbook is developed to guide the **{{ context.team }}** on how to effectively manage and operate the Red Hat Ansible Automation Platform (AAP) **v{{ aap_version }}** in an **{{ environment_type }}** environment.
+
+## 1.1 Purpose
+
+- **Objective**: Establish a clear reference for day-to-day operations, governance, and best practices surrounding AAP.
+- **Alignment**: Supports organizational goals of **{{ main_objectives }}** while following constraints such as Red Hat Satellite **v{{ satellite_version }}** and internal security & compliance standards.
+- **Rationale**: By providing repeatable, well-documented workflows, we ensure consistency, reduce errors, and accelerate adoption of DevSecOps capabilities across all teams.
+
+## 1.2 Scope
+
+- **In-Scope**:
+  - Core AAP administrative tasks (user onboarding/offboarding, credential management, inventory policies).
+  - Integration points (e.g., Satellite, MECM, Splunk, BMC Helix).
+  - Governance rules (RBAC, audits, compliance checks, logging).
+  - Architecture guidelines (control plane, execution nodes, EEs).
+- **Out-of-Scope**:
+  - Custom application playbook development (handled by respective teams).
+  - Network redesign, advanced security frameworks, or vendor-specific operational tasks.
+
+> **Note**: This document builds on the AAP Policy & Governance guidelines :contentReference[oaicite:0]{index=0} and references your GitHub variables and environment constraints.  
+
+---
+
+# 2. Platform Overview & Architecture
+
+This section provides a high-level architecture diagram and key concepts for the AAP environment. It also outlines essential integration points that support **{{ rationale }}** and ensure alignment with both technical and organizational constraints.
+
+## 2.1 High-Level Architecture
+
+- **Control Plane (Automation Controller)**:
+  - Manages job scheduling, RBAC enforcement, and logs.
+  - Integrated with **F5 Big-IP** for load balancing over HTTPS.
+  - Authentication via **Okta** and **AD**, with user lifecycle managed in **SailPoint**.
+- **Execution Plane (Execution Nodes)**:
+  - Runs playbooks in isolated **Execution Environments (EEs)**.
+  - Pulls images from **quay.io/internal-registry** (or Docker/OpenShift).
+  - Collates logs to **Splunk** or **BMC Helix** for auditing and compliance.
+
+## 2.2 Key Integrations
+
+1. **Red Hat Satellite (v{{ satellite_version }})**  
+   - Central inventory for RHEL servers (v8, v9).
+   - Patching and errata management, integrated with AAP job templates.
+2. **Windows Patch Management**  
+   - MECM or manual approaches, combined with AAP for standardized workflows.
+3. **Security Tooling**  
+   - Tenable for vulnerability management, with custom playbooks for vulnerability remediation.
+   - **SentinelOne**, **Checkpoint**, or **Splunk** for threat detection and logs.
+4. **ITSM & Monitoring**  
+   - **BMC Helix** for change requests (CRQs) and incident logging.
+   - **Splunk** for real-time analytics and compliance dashboards.
+
+## 2.3 Terminology & Concepts
+
+- **Organization Model** (main & develop):  
+  - Mirrors GitHub branching strategy (`develop` → `main`).
+  - Ensures safe testing (develop) before production deployment (main).
+- **Role-Based Access Control (RBAC)**:  
+  - Enforced via AD groups mapped to AAP roles (Admins, Engineers, Operators, Auditors).
+  - No direct user-level modifications—SailPoint handles group membership.
+- **Execution Environments (EEs)**:
+  - Container-based images with required Ansible Collections (e.g., `ansible.windows`, `community.general`).
+  - Approved/maintained by **Platform Engineers**; stored in container registry.
+
+> **Tip**: Refer to the AAP Governance doc, Section *3: AAP Organizations & Role-Based Access Model* for detailed role definitions and best practices :contentReference[oaicite:1]{index=1}.
+
+## 2.4 Known Issues & Future Enhancements
+
+- **Known Issues**:
+  - Partial automation coverage for Windows patching (planning deeper MECM integration).
+  - No API-driven integration with BMC Helix for advanced incident correlation (WIP).
+- **Future Enhancements**:
+  - Integrate **CyberArk** for secret rotation.
+  - Expand container-based workflows and advanced triggers (webhooks, event-driven runs).
+  - Automate detection of **config drift** with Ansible & Splunk dashboards.
+
+---
+
+
